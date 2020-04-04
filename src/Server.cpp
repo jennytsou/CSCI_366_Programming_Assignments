@@ -53,6 +53,13 @@ void Server::initialize(unsigned int board_size,
 }
 
 
+Server::~Server() {
+}
+
+
+BitArray2D *Server::scan_setup_board(string setup_board_name){
+}
+
 int Server::evaluate_shot(unsigned int player, unsigned int x, unsigned int y) {
 
     if ( player==1 && (x==1 && y==1)) {
