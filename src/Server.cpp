@@ -26,13 +26,26 @@
  * @return length of the file in bytes
  */
 int get_file_length(ifstream *file){
+
+    int end_pos;
+    file->seekg(0, file->end);
+    end_pos = file->tellg();
+    return end_pos;
 }
 
 
 void Server::initialize(unsigned int board_size,
                         string p1_setup_board,
                         string p2_setup_board){
+
+    ifstream file;
     this->board_size=board_size;
+    file.open(p1_setup_board);
+    if(file) {
+        throw ServerException("Can not open " + p1_setup_board);
+    }
+
+ /*
     this->p1_setup_board.open(p1_setup_board, ifstream::in);
     this->p2_setup_board.open(p2_setup_board, ifstream::in);
     if (this->p1_setup_board.fail()) {
@@ -41,6 +54,7 @@ void Server::initialize(unsigned int board_size,
     if (this->p1_setup_board.fail()) {
         throw ServerException("Can not open " + p1_setup_board);
     }
+ */
     if(board_size != BOARD_SIZE){
         throw ServerException("Bad board size");
     } else if (p1_setup_board.length() < 4 || p2_setup_board.length() < 4){
