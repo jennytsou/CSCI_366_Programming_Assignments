@@ -37,9 +37,11 @@ BitArray2D::~BitArray2D() {
 
 bool BitArray2D::get(unsigned int row, unsigned int column){
    // set array bounds
-   if ( row > 10 || column > 10 )
+   if ( row >= 10 || column >= 10 )
        throw BitArray2DException(" Lower board size");
    else if ( row < 0 || column < 0 )
+       throw BitArray2DException(" Bad board size");
+   else if ( row > rows || column > columns)
        throw BitArray2DException(" Bad board size");
 
    // get the element
@@ -52,7 +54,7 @@ void BitArray2D::set(unsigned int row, unsigned int column){
    // check array bounds
     if ( row < 0 || column < 0 )
         throw BitArray2DException(" Lower board size");
-    else if ( row > 10 || column > 10)
+    else if ( row >= 10 || column >= 10)
         throw BitArray2DException(" Bad board size");
 
 

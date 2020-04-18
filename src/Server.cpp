@@ -25,13 +25,30 @@
  * @param file - the file whose length we want to query
  * @return length of the file in bytes
  */
-int get_file_length(ifstream *file){
 
-    int end_pos;
-    file->seekg(0, file->end);
-    end_pos = file->tellg();
-    return end_pos;
+#include <stdio.h>
+struct p1_board {
+    char board[BOARD_SIZE][BOARD_SIZE];
+} ;
+struct p2_board {
+        char board[BOARD_SIZE][BOARD_SIZE];
+} ;
+
+struct p1_board player_1;
+struct p2_board player_2;
+
+int get_file_length(ifstream *file) {
+
+    long bfile, efile;
+    bfile = file->tellg();
+    file->seekg(0, ios::end);
+    efile = file->tellg();
+    file->close();
+
+    return (efile - bfile);
+
 }
+
 
 
 void Server::initialize(unsigned int board_size,
@@ -41,7 +58,7 @@ void Server::initialize(unsigned int board_size,
     ifstream file;
     this->board_size=board_size;
     file.open(p1_setup_board);
-    if(file) {
+    if(!file) {
         throw ServerException("Can not open " + p1_setup_board);
     }
 
@@ -64,6 +81,8 @@ void Server::initialize(unsigned int board_size,
     } else if (board_size==BOARD_SIZE && p2_setup_board.length() < 4 ) {
         throw ServerException("Override");
     }
+
+
 }
 
 
@@ -72,6 +91,22 @@ Server::~Server() {
 
 
 BitArray2D *Server::scan_setup_board(string setup_board_name){
+
+    for (int i=0; i< BOARD_SIZE; i++) {
+        for (int j=0; j< BOARD_SIZE; j++) {
+            if (player_1.board[i][j] != '_') {
+                p1_setup_board->set(i, j);
+            }
+        }
+    }
+
+    for (int i=0; i< BOARD_SIZE; i++) {
+        for (int j=0; j< BOARD_SIZE; j++) {
+            if (player_2.board[i][j] != '_') {
+                p2_setup_board->set(i, j);
+            }
+        }
+    }
 }
 
 int Server::evaluate_shot(unsigned int player, unsigned int x, unsigned int y) {
