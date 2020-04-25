@@ -19,16 +19,34 @@
 
 BitArray2D::BitArray2D(unsigned int rows, unsigned int columns) {
 
+    if ( rows < 1 || columns < 1 )
+        throw BitArray2DException(" Bad board size");
+
+    this->rows = rows;
+    this->columns = columns;
+
 }
 
 
 BitArray2D::~BitArray2D() {
 
+    delete BitArray2D::array;
+
 }
 
 
 bool BitArray2D::get(unsigned int row, unsigned int column){
+<<<<<<< HEAD
    // check array bounds
+=======
+   // set array bounds
+   if ( row >= 10 || column >= 10 )
+       throw BitArray2DException(" Lower board size");
+   else if ( row < 0 || column < 0 )
+       throw BitArray2DException(" Bad board size");
+   else if ( row > rows || column > columns)
+       throw BitArray2DException(" Bad board size");
+>>>>>>> PA2_Bit_Board_Storage
 
    // get the element
    return get_bit_elem(array, columns, row, column);
@@ -38,6 +56,11 @@ bool BitArray2D::get(unsigned int row, unsigned int column){
 
 void BitArray2D::set(unsigned int row, unsigned int column){
    // check array bounds
+    if ( row < 0 || column < 0 )
+        throw BitArray2DException(" Lower board size");
+    else if ( row >= 10 || column >= 10)
+        throw BitArray2DException(" Bad board size");
+
 
    // set the element
    set_bit_elem(array, columns, row, column);

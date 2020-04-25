@@ -20,6 +20,7 @@ add_library(CLIENT
         Client.cpp
         Socket.cpp)
 
+<<<<<<< HEAD
 SET(CMAKE_CXX_FLAGS -pthread)
 add_executable(run_server
         server_main.cpp
@@ -34,3 +35,12 @@ add_executable(run_client
         BitArray2D.cpp
         BitArray2D.asm
         Socket.cpp)
+=======
+#add_executable(run_server server_main.cpp Server.cpp)
+
+#add_executable(run_client client_main.cpp Client.cpp)
+
+add_executable(run_server server_main.cpp Server.cpp BitArray2D.cpp BitArray2D.hpp BitArray2D.asm)
+
+add_executable(run_client client_main.cpp Client.cpp BitArray2D.cpp BitArray2D.hpp BitArray2D.asm)
+>>>>>>> PA2_Bit_Board_Storage

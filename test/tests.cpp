@@ -515,10 +515,16 @@ protected:
       client.initialize(1, socket, BOARD_SIZE);
    }
 
+<<<<<<< HEAD
    void TearDown() override{
       delete socket;
       remove("player_1.action_board.json");
    }
+=======
+    void TearDown() override{
+       remove("player_1.action_board.json");
+    }
+>>>>>>> PA2_Bit_Board_Storage
 };
 
 TEST_F(ClientUpdateActionBoard, Record_Hit){
